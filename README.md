@@ -1,8 +1,12 @@
 # 🚀 Dom Event Tracker!
 Dynamically tracks mutations and listens for click and seen events.
+
+[![CircleCI](https://circleci.com/gh/Trendyol/dom-event-tracker.svg?style=svg)](https://circleci.com/gh/Trendyol/dom-event-tracker) 
+
 Data tracker uses [IntersectionObserver](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) and [MutationObserver](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver) to tracker for events click and seen.
 Whenever an element is visible in the users screen it fires `seen` event. 
 Whenever user clicks an item, it fies `click` event.
+
 
 ## Install
 ```
