@@ -44,5 +44,7 @@ window.Tracker.init((eventName, eventType, element) => {
 ### Seen
 Whenever an element is visible in the users screen it fires `seen` event. IntersectionObserver without threshold.
 
+> Whenever callback returns `true`, seen event won't be fired for that element. Otherwise it will always fire seen event. This means almost each scroll
+
 ### Click
 Whenever user clicks an item, it fies `click` event.

@@ -205,14 +205,14 @@ describe('Listener', () => {
     expect(intersectionObserverProto.observe.calledWithExactly(element)).to.eq(true);
   });
 
-  it('should track intersections and disconnect', () => {
+  it('should track intersections and disconnect if callback returns true', () => {
     // Arrange
     const tracker = {
       event: faker.random.word(),
       type: faker.random.word()
     };
     const element = {};
-    const callback = sandbox.stub();
+    const callback = sandbox.stub().returns(true);
     const entries = [{
       isIntersecting: true
     }];
@@ -226,6 +226,29 @@ describe('Listener', () => {
     // Assert
     expect(callback.calledWithExactly(tracker.event, tracker.type, element)).to.eq(true);
     expect(observer.disconnect.calledOnce).to.eq(true);
+  });
+
+  it('should track intersections but not stop overserver if callback returns false', () => {
+    // Arrange
+    const tracker = {
+      event: faker.random.word(),
+      type: faker.random.word()
+    };
+    const element = {};
+    const callback = sandbox.stub().returns(false);
+    const entries = [{
+      isIntersecting: true
+    }];
+    const observer = {
+      disconnect: sandbox.stub()
+    };
+
+    // Act
+    listener.onIntersection(tracker, element, callback, entries, observer);
+
+    // Assert
+    expect(callback.calledWithExactly(tracker.event, tracker.type, element)).to.eq(true);
+    expect(observer.disconnect.calledOnce).to.eq(false);
   });
 
   it('should track intersections not disconnect no intersection', () => {
