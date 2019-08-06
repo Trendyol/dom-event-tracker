@@ -13,11 +13,11 @@ npm run build
 1. Add `data-tracker-root` attribute to root element.
 2. Add tracking attributes to elements that you want to track `data-tracker="seen:seenEventName click:clickEventName"`. 
 3. Start Tracker
-```
-    window.Tracker.init((eventName, eventType, element) => {
-        //Report your event
-        GoogleAnalytics.fireEvent(eventName);
-    });
+```js
+window.Tracker.init((eventName, eventType, element) => {
+    //Report your event
+    GoogleAnalytics.fireEvent(eventName);
+});
 ```
 
 ## Example
@@ -32,6 +32,9 @@ npm run build
             </div>
             <div class="help-button" data-tracker="click:helpButtonClicked"></div>
         </div>
+        <script>
+            window.Tracker.init(); // Without callback it uses console for notifying events
+        </script>
     </body>
 </html>
 ```
@@ -39,7 +42,7 @@ npm run build
 
 ## Event Types
 ### Seen
-Whenever an element is visible in the users screen it fires `seen` event. 
+Whenever an element is visible in the users screen it fires `seen` event. IntersectionObserver without threshold.
 
 ### Click
 Whenever user clicks an item, it fies `click` event.
