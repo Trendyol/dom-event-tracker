@@ -1,15 +1,8 @@
-# 🚀 Welcome to your new awesome project!
+# 🚀 Data Tracker!
+Dynamically tracks mutations and listens for click and seen events
 
-This project has been created using **webpack scaffold**, you can now run
 
 ```
 npm run build
 ```
 
-or
-
-```
-yarn build
-```
-
-to bundle your application
