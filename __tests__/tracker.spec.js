@@ -18,6 +18,7 @@ let tracker;
 let featureDetectorMock;
 let observerMock;
 let listenerMock;
+let checkStartPrototypeStub;
 
 describe('Tracker', () => {
   beforeEach(() => {
@@ -25,6 +26,7 @@ describe('Tracker', () => {
     observerMock = sandbox.mock(observer);
     listenerMock = sandbox.mock(listener);
     sandbox.stub(console, 'warn');
+    checkStartPrototypeStub = sandbox.stub(Tracker.prototype, 'checkStartCallback');
     tracker = new Tracker(featureDetector, observer, listener);
   });
 
@@ -80,33 +82,18 @@ describe('Tracker', () => {
     expect(mutationObserverSpy.calledWithExactly(handler)).to.eq(true);
   });
 
-  it('should throw error if root element not registered', () => {
-    // Arrange
-    const spy = sandbox.spy();
-    const stub = sandbox.stub(document, 'querySelector').returns(undefined);
-
-    // Act
-    const test = () => {
-      tracker.registerMutationObserver(spy);
-    };
-
-    // Assert
-    expect(test).to.throw(ERRORS.ROOT_ELEMENT_NOT_REGISTERED);
-    expect(stub.calledWithExactly(`[${ENUMS.ROOT_TRACKER_ATTRIBUTE}]`)).to.eq(true);
-  });
-
   it('should start observer', () => {
     // Arrange
     const spy = sandbox.spy();
     const element = {};
-    const stub = sandbox.stub(document, 'querySelector').returns(element);
+    const stub = sandbox.stub(tracker, 'getRootElement').returns(element);
     observerMock.expects('init').withExactArgs(element, spy);
 
     // Act
     tracker.registerMutationObserver(spy);
 
     // Assert
-    expect(stub.calledWithExactly(`[${ENUMS.ROOT_TRACKER_ATTRIBUTE}]`)).to.eq(true);
+    expect(stub.calledOnce).to.eq(true);
   });
 
   it('should register initial listeners', () => {
@@ -139,6 +126,74 @@ describe('Tracker', () => {
       type,
       element
     })).to.eq(true);
+  });
+
+  it('should check for startCallback and call init', () => {
+    // Arrange
+
+    const fnName = '__fakeCallback';
+    window[fnName] = () => {};
+    const element = {
+      attributes: {
+        [ENUMS.ROOT_TRACKER_ATTRIBUTE]: {
+          value: fnName
+        }
+      }
+    };
+    const rootElementStub = sandbox.stub(tracker, 'getRootElement').returns(element);
+    const stubbedMethod = checkStartPrototypeStub.wrappedMethod.bind(tracker);
+    const initStub = sandbox.stub(tracker, 'init');
+
+
+    // Act
+    stubbedMethod();
+
+    // Assert
+    expect(initStub.calledWithExactly(window[fnName])).to.eq(true);
+  });
+
+  it('should check for startCallback and should not call init for invalid', () => {
+    // Arrange
+    const element = {
+      attributes: {
+        [ENUMS.ROOT_TRACKER_ATTRIBUTE]: {
+          value: ''
+        }
+      }
+    };
+    const rootElementStub = sandbox.stub(tracker, 'getRootElement').returns(element);
+    const stubbedMethod = checkStartPrototypeStub.wrappedMethod.bind(tracker);
+    const initStub = sandbox.stub(tracker, 'init');
+
+
+    // Act
+    stubbedMethod();
+
+    // Assert
+    expect(initStub.notCalled).to.eq(true);
+  });
+
+  it('should throw error if root element not exists', () => {
+    // Act
+    const test = () => {
+      tracker.getRootElement()
+    }
+
+    // Assert
+    expect(test).to.throw(ERRORS.ROOT_ELEMENT_NOT_REGISTERED);
+  });
+
+  it('should return root element', () => {
+    // Arrange
+    const foundElement = {};
+    const queryStub = sandbox.stub(document, 'querySelector').returns(foundElement);
+
+    // Act
+    const element = tracker.getRootElement();
+
+    // Assert
+    expect(element).to.eq(foundElement);
+    expect(queryStub.calledWithExactly(`[${ENUMS.ROOT_TRACKER_ATTRIBUTE}]`)).to.eq(true);
   });
 });
 

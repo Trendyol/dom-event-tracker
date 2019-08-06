@@ -53,3 +53,39 @@ Whenever an element is visible in the users screen it fires `seen` event. Inters
 
 ### Click
 Whenever user clicks an item, it fies `click` event.
+
+
+## Tracker Callback
+
+### Root Callback
+You can provide root callback for async initialize.
+```html
+<div data-tracker-root="onTrackerLoaded">
+    <div data-tracker="seen:seenItem"></div>
+</div>
+<script>
+function onTrackerLoaded(e){
+  GoogleAnalytics.event(e);
+}
+</script>
+<script src="cdn://tracker.min.js" defer></script>
+```
+
+### Custom start
+You can also call init manually
+```html
+<div data-tracker-root="">
+    <div data-tracker="seen:seenItem"></div>
+</div>
+<script src="cdn://tracker.min.js"></script>
+<script>
+    window.Tracker.init((e) => GoogleAnalytics.event(e));
+</script>
+```
+
+### Callback Params
+```js
+function callbackHandler(eventName, eventType, element){
+  
+}
+```
