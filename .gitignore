@@ -88,5 +88,5 @@ typings/
 .dynamodb/
 
 .idea
-
+coverage
 dist

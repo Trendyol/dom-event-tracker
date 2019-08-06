@@ -4,7 +4,7 @@
   "description": "Dynamically tracks mutations and listens for click and seen events",
   "main": "dist/dom-event-tracker.min.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --coverage",
     "test:watch": "jest --watch --coverage",
     "build": "webpack",
     "start": "webpack-dev-server"
