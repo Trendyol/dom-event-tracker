@@ -10,7 +10,7 @@ npm run build
 ```
 
 ## Usage
-1. Add `data-tracker-root` attribute to root element.
+1. Add `data-tracker-root` attribute to root element. Root element is being tracked for mutations.
 2. Add tracking attributes to elements that you want to track `data-tracker="seen:seenEventName click:clickEventName"`. 
 3. Start Tracker
 ```js
