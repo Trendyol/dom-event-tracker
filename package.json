@@ -1,8 +1,8 @@
 {
-  "name": "data-tracker",
+  "name": "dom-event-tracker",
   "version": "1.0.0",
   "description": "Dynamically tracks mutations and listens for click and seen events",
-  "main": "dist/data-tracker.min.js",
+  "main": "dist/dom-event-tracker.min.js",
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch --coverage",

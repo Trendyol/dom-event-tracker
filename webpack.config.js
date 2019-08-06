@@ -7,7 +7,7 @@ module.exports = {
 	entry: './lib/index.js',
 
 	output: {
-		filename: 'data-tracker.min.js',
+		filename: 'dom-event-tracker.min.js',
 		path: path.resolve(__dirname, 'dist')
 	},
 
