@@ -1,6 +1,6 @@
 {
   "name": "dom-event-tracker",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Dynamically tracks mutations and listens for click and seen events",
   "main": "dist/dom-event-tracker.min.js",
   "scripts": {
