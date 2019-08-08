@@ -11,6 +11,15 @@ Whenever user clicks an item, it fies `click` event.
 
 ## Install
 ```
+npm install dom-event-tracker
+```
+
+## Custom Build
+You can also clone repository and build.
+
+```
+git clone git@github.com:Trendyol/dom-event-tracker.git && cd dom-event-tracker
+npm install
 npm run build
 ```
 
