@@ -16,6 +16,7 @@ module.exports = {
   },
   rules: {
     "class-methods-use-this": 0,
-    "no-console": 0
+    "no-console": 0,
+    "arrow-parens": 0
   },
 };
