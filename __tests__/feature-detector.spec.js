@@ -1,6 +1,6 @@
-const FeatureDetector = require('../lib/feature-detector');
-const {expect} = require('chai');
+const { expect } = require('chai');
 const sinon = require('sinon');
+const FeatureDetector = require('../lib/feature-detector');
 
 const sandbox = sinon.createSandbox();
 
@@ -40,8 +40,8 @@ describe('FeatureDetector', () => {
     window.IntersectionObserver = {};
     window.IntersectionObserverEntry = {
       prototype: {
-        intersectionRatio: true
-      }
+        intersectionRatio: true,
+      },
     };
 
     // Act
@@ -63,4 +63,3 @@ describe('FeatureDetector', () => {
     expect(isSupported).to.eq(true);
   });
 });
-
