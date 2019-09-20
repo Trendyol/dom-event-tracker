@@ -57,7 +57,12 @@ describe('Observer', () => {
         type: 'childList',
         addedNodes: [
           node
-        ]
+        ],
+        target: {
+          attributes: {
+            [ENUMS.TRACKING_ATTRIBUTE]: faker.random.word()
+          }
+        }
       }
     ];
 
@@ -65,6 +70,7 @@ describe('Observer', () => {
     observer.handlerCallback = cb;
 
     listenerMock.expects('track').withExactArgs(node, cb);
+    listenerMock.expects('track').withExactArgs(mutations[0].target, cb);
 
     // Act
     observer.onMutation(mutations);
@@ -73,14 +79,21 @@ describe('Observer', () => {
   it('should not call tracker if no attributes', () => {
     // Arrange
     const node = {
+      attributes: {
 
+      }
     };
     const mutations = [
       {
         type: 'childList',
         addedNodes: [
           node
-        ]
+        ],
+        target: {
+          attributes: {
+
+          }
+        }
       }
     ];
 
@@ -116,6 +129,16 @@ describe('Observer', () => {
 
     // Act
     observer.onMutation(mutations);
+  });
+
+  it('should test', () => {
+    // Arrange
+    
+
+    // Act
+
+
+    // Assert
   });
 });
 
