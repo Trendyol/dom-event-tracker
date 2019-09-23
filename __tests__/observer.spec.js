@@ -133,7 +133,7 @@ describe('Observer', () => {
 
   it('should test', () => {
     // Arrange
-    
+
 
     // Act
 
