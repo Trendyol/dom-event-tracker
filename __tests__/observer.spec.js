@@ -130,15 +130,5 @@ describe('Observer', () => {
     // Act
     observer.onMutation(mutations);
   });
-
-  it('should test', () => {
-    // Arrange
-
-
-    // Act
-
-
-    // Assert
-  });
 });
 
