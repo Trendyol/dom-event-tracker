@@ -1,12 +1,12 @@
+const { expect } = require('chai');
+const sinon = require('sinon');
+const faker = require('faker');
 const Tracker = require('../lib/tracker');
 const FeatureDetector = require('../lib/feature-detector');
 const Observer = require('../lib/observer');
 const Listener = require('../lib/listener');
-const {WARNINGS, ERRORS} = require('../lib/errors');
+const { WARNINGS, ERRORS } = require('../lib/errors');
 const ENUMS = require('../lib/enums');
-const {expect} = require('chai');
-const sinon = require('sinon');
-const faker = require('faker');
 
 const sandbox = sinon.createSandbox();
 
@@ -44,7 +44,7 @@ describe('Tracker', () => {
 
   it('should warn user if data tracker is not supported', () => {
     // Arrange
-    sandbox.stub(featureDetector, 'supported').get(_ => false);
+    sandbox.stub(featureDetector, 'supported').get((_) => false);
 
     // Act
     tracker.init();
@@ -55,7 +55,7 @@ describe('Tracker', () => {
 
   it('should use custom handler if no handler provided', () => {
     // Arrange
-    sandbox.stub(featureDetector, 'supported').get(_ => true);
+    sandbox.stub(featureDetector, 'supported').get((_) => true);
     const initialListenersSpy = sandbox.stub(tracker, 'registerInitialListeners');
     const mutationObserverSpy = sandbox.stub(tracker, 'registerMutationObserver');
 
@@ -69,7 +69,7 @@ describe('Tracker', () => {
 
   it('should use provided handler', () => {
     // Arrange
-    sandbox.stub(featureDetector, 'supported').get(_ => true);
+    sandbox.stub(featureDetector, 'supported').get((_) => true);
     const handler = sandbox.stub();
     const initialListenersSpy = sandbox.stub(tracker, 'registerInitialListeners');
     const mutationObserverSpy = sandbox.stub(tracker, 'registerMutationObserver');
@@ -124,7 +124,7 @@ describe('Tracker', () => {
     expect(stub.calledWith({
       eventName,
       type,
-      element
+      element,
     })).to.eq(true);
   });
 
@@ -136,9 +136,9 @@ describe('Tracker', () => {
     const element = {
       attributes: {
         [ENUMS.ROOT_TRACKER_ATTRIBUTE]: {
-          value: fnName
-        }
-      }
+          value: fnName,
+        },
+      },
     };
     const rootElementStub = sandbox.stub(tracker, 'getRootElement').returns(element);
     const stubbedMethod = checkStartPrototypeStub.wrappedMethod.bind(tracker);
@@ -157,9 +157,9 @@ describe('Tracker', () => {
     const element = {
       attributes: {
         [ENUMS.ROOT_TRACKER_ATTRIBUTE]: {
-          value: ''
-        }
-      }
+          value: '',
+        },
+      },
     };
     const rootElementStub = sandbox.stub(tracker, 'getRootElement').returns(element);
     const stubbedMethod = checkStartPrototypeStub.wrappedMethod.bind(tracker);
@@ -176,8 +176,8 @@ describe('Tracker', () => {
   it('should throw error if root element not exists', () => {
     // Act
     const test = () => {
-      tracker.getRootElement()
-    }
+      tracker.getRootElement();
+    };
 
     // Assert
     expect(test).to.throw(ERRORS.ROOT_ELEMENT_NOT_REGISTERED);
@@ -196,4 +196,3 @@ describe('Tracker', () => {
     expect(queryStub.calledWithExactly(`[${ENUMS.ROOT_TRACKER_ATTRIBUTE}]`)).to.eq(true);
   });
 });
-
