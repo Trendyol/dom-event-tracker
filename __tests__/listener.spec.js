@@ -134,6 +134,31 @@ describe('Listener', () => {
     expect(trackingOptions.element.addEventListener.calledWith('click', handlerFn)).to.eq(true);
   });
 
+  it('should hook click:capture listeners', () => {
+    // Arrange
+    const event = faker.random.word();
+    const trackingOptions = {
+      trackers: [{
+        type: ENUMS.TRACKING_TYPE.CLICK_CAPTURE,
+        event,
+      }],
+      element: {
+        addEventListener: sandbox.stub()
+      }
+    };
+    const handlerFn = {};
+    const cb = {
+      bind: sandbox.stub().returns(handlerFn)
+    };
+
+    // Act
+    listener.hookListeners(trackingOptions, cb);
+
+    // Assert
+    expect(cb.bind.calledWithExactly(null, event, ENUMS.TRACKING_TYPE.CLICK_CAPTURE, trackingOptions.element)).to.eq(true);
+    expect(trackingOptions.element.addEventListener.calledWith('click', handlerFn, {capture: true})).to.eq(true);
+  });
+
   it('should hook intersection listeners', () => {
     // Arrange
     const event = faker.random.word();

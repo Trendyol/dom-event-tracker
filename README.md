@@ -45,6 +45,7 @@ window.Tracker.init((eventName, eventType, element) => {
                 <div class="info-box" data-tracker="seen:infoBoxSeen"></div>
             </div>
             <div class="help-button" data-tracker="click:helpButtonClicked"></div>
+            <div class="info-button" data-tracker="click-capture:infoButtonClicked"></div>
         </div>
         <script>
             window.Tracker.init(); // Without callback it uses console for notifying events
@@ -55,13 +56,20 @@ window.Tracker.init((eventName, eventType, element) => {
 
 
 ## Event Types
-### Seen
+### Seen (seen:eventName)
 Whenever an element is visible in the users screen it fires `seen` event. IntersectionObserver without threshold.
 
 > Whenever callback returns `true`, seen event won't be fired for that element. Otherwise it will always fire seen event. This means almost each scroll
 
-### Click
-Whenever user clicks an item, it fies `click` event.
+### Click (click:eventName)
+Whenever user clicks an item, it fires `click` event.
+Uses event **bubbling** for listening click events.
+
+
+### ClickCapture (click-capture:eventName)
+Whenever user clicks an item, it fires `click` event.
+Uses event **capturing** for listening click events.
+
 
 
 ## Tracker Callback
