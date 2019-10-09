@@ -1,9 +1,9 @@
+const faker = require('faker');
+const { expect } = require('chai');
+const sinon = require('sinon');
 const Observer = require('../lib/observer');
 const Listener = require('../lib/listener');
-const faker = require('faker');
 const ENUMS = require('../lib/enums');
-const {expect} = require('chai');
-const sinon = require('sinon');
 
 const sandbox = sinon.createSandbox();
 
@@ -30,7 +30,7 @@ describe('Listener', () => {
     // Arrange
     const trackerAttribute = faker.random.word();
     const element = {
-      getAttribute: sandbox.stub().returns(trackerAttribute)
+      getAttribute: sandbox.stub().returns(trackerAttribute),
     };
     const cb = sandbox.spy();
     const trackerOptions = {};
@@ -44,7 +44,7 @@ describe('Listener', () => {
     expect(parseTrackerStub.calledWithExactly(trackerAttribute)).to.eq(true);
     expect(hookListenersStub.calledWith({
       element,
-      trackers: trackerOptions
+      trackers: trackerOptions,
     })).to.eq(true);
   });
 
@@ -53,7 +53,7 @@ describe('Listener', () => {
     const trackerAttribute = faker.random.word();
     const element = {
       getAttribute: sandbox.stub().returns(trackerAttribute),
-      __tracker_registered: true
+      __tracker_registered: true,
     };
     const cb = sandbox.spy();
     const trackerOptions = {};
@@ -67,7 +67,7 @@ describe('Listener', () => {
     expect(parseTrackerStub.calledWithExactly(trackerAttribute)).to.eq(true);
     expect(hookListenersStub.calledWith({
       element,
-      trackers: trackerOptions
+      trackers: trackerOptions,
     })).to.eq(false);
   });
 
@@ -83,13 +83,13 @@ describe('Listener', () => {
       expect(parsed).to.deep.eq([
         {
           type: 'seen',
-          event: 'e1'
+          event: 'e1',
         },
         {
           type: 'click',
-          event: 'e2'
-        }
-      ])
+          event: 'e2',
+        },
+      ]);
     });
 
     it('should parse single option', () => {
@@ -103,9 +103,9 @@ describe('Listener', () => {
       expect(parsed).to.deep.eq([
         {
           type: 'seen',
-          event: 'e1'
-        }
-      ])
+          event: 'e1',
+        },
+      ]);
     });
   });
 
@@ -118,12 +118,12 @@ describe('Listener', () => {
         event,
       }],
       element: {
-        addEventListener: sandbox.stub()
-      }
+        addEventListener: sandbox.stub(),
+      },
     };
     const handlerFn = {};
     const cb = {
-      bind: sandbox.stub().returns(handlerFn)
+      bind: sandbox.stub().returns(handlerFn),
     };
 
     // Act
@@ -169,8 +169,8 @@ describe('Listener', () => {
     const trackingOptions = {
       trackers: [tracker],
       element: {
-        addEventListener: sandbox.stub()
-      }
+        addEventListener: sandbox.stub(),
+      },
     };
     const cb = sandbox.stub();
     const registerStub = sandbox.stub(listener, 'registerIntersectionObserver');
@@ -192,8 +192,8 @@ describe('Listener', () => {
     const trackingOptions = {
       trackers: [tracker],
       element: {
-        addEventListener: sandbox.stub()
-      }
+        addEventListener: sandbox.stub(),
+      },
     };
     const cb = sandbox.stub();
     const registerStub = sandbox.stub(listener, 'registerIntersectionObserver');
@@ -209,7 +209,7 @@ describe('Listener', () => {
     // Arrange
     const tracker = {
       event: faker.random.word(),
-      type: faker.random.word()
+      type: faker.random.word(),
     };
     const element = {};
     const callback = sandbox.stub();
@@ -217,8 +217,8 @@ describe('Listener', () => {
 
     listener.onIntersection.bind = sandbox.stub().returns(fn);
     const intersectionObserverProto = {
-      observe: sandbox.stub()
-    }
+      observe: sandbox.stub(),
+    };
     window.IntersectionObserver = sandbox.stub().returns(intersectionObserverProto);
 
     // Act
@@ -234,15 +234,15 @@ describe('Listener', () => {
     // Arrange
     const tracker = {
       event: faker.random.word(),
-      type: faker.random.word()
+      type: faker.random.word(),
     };
     const element = {};
     const callback = sandbox.stub().returns(true);
     const entries = [{
-      isIntersecting: true
+      isIntersecting: true,
     }];
     const observer = {
-      disconnect: sandbox.stub()
+      disconnect: sandbox.stub(),
     };
 
     // Act
@@ -257,15 +257,15 @@ describe('Listener', () => {
     // Arrange
     const tracker = {
       event: faker.random.word(),
-      type: faker.random.word()
+      type: faker.random.word(),
     };
     const element = {};
     const callback = sandbox.stub().returns(false);
     const entries = [{
-      isIntersecting: true
+      isIntersecting: true,
     }];
     const observer = {
-      disconnect: sandbox.stub()
+      disconnect: sandbox.stub(),
     };
 
     // Act
@@ -280,15 +280,15 @@ describe('Listener', () => {
     // Arrange
     const tracker = {
       event: faker.random.word(),
-      type: faker.random.word()
+      type: faker.random.word(),
     };
     const element = {};
     const callback = sandbox.stub();
     const entries = [{
-      isIntersecting: false
+      isIntersecting: false,
     }];
     const observer = {
-      disconnect: sandbox.stub()
+      disconnect: sandbox.stub(),
     };
 
     // Act
@@ -299,4 +299,3 @@ describe('Listener', () => {
     expect(observer.disconnect.calledOnce).to.eq(false);
   });
 });
-

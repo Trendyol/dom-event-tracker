@@ -1,9 +1,9 @@
+const faker = require('faker');
+const { expect } = require('chai');
+const sinon = require('sinon');
 const Observer = require('../lib/observer');
 const Listener = require('../lib/listener');
-const faker = require('faker');
 const ENUMS = require('../lib/enums');
-const {expect} = require('chai');
-const sinon = require('sinon');
 
 const sandbox = sinon.createSandbox();
 const listener = new Listener();
@@ -49,15 +49,20 @@ describe('Observer', () => {
     // Arrange
     const node = {
       attributes: {
-        [ENUMS.TRACKING_ATTRIBUTE]: faker.random.word()
-      }
+        [ENUMS.TRACKING_ATTRIBUTE]: faker.random.word(),
+      },
     };
     const mutations = [
       {
         type: 'childList',
         addedNodes: [
           node
-        ]
+        ],
+        target: {
+          attributes: {
+            [ENUMS.TRACKING_ATTRIBUTE]: faker.random.word()
+          }
+        }
       }
     ];
 
@@ -65,6 +70,7 @@ describe('Observer', () => {
     observer.handlerCallback = cb;
 
     listenerMock.expects('track').withExactArgs(node, cb);
+    listenerMock.expects('track').withExactArgs(mutations[0].target, cb);
 
     // Act
     observer.onMutation(mutations);
@@ -73,14 +79,21 @@ describe('Observer', () => {
   it('should not call tracker if no attributes', () => {
     // Arrange
     const node = {
+      attributes: {
 
+      }
     };
     const mutations = [
       {
         type: 'childList',
         addedNodes: [
           node
-        ]
+        ],
+        target: {
+          attributes: {
+
+          }
+        }
       }
     ];
 
@@ -97,16 +110,16 @@ describe('Observer', () => {
     // Arrange
     const node = {
       attributes: {
-        [ENUMS.TRACKING_ATTRIBUTE]: faker.random.word()
-      }
+        [ENUMS.TRACKING_ATTRIBUTE]: faker.random.word(),
+      },
     };
     const mutations = [
       {
         type: faker.random.word(),
         addedNodes: [
-          node
-        ]
-      }
+          node,
+        ],
+      },
     ];
 
     const cb = sandbox.spy();
@@ -118,4 +131,3 @@ describe('Observer', () => {
     observer.onMutation(mutations);
   });
 });
-
