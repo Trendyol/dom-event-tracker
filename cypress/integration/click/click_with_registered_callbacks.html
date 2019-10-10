@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test</title>
+</head>
+<body>
+<script>
+  window.dataTrackerEvents = [];
+
+  function init(event, type,e) {
+    window.dataTrackerEvents.push({
+      event,
+      type
+    });
+  }
+</script>
+<div data-tracker-root="init">
+    <div id="click" data-tracker="click:test" onclick="return false;">Click me</div>
+    <a href="/anywhere" id="link" data-tracker="click:link" onclick="return false">Link</a>
+    <a href="#test" id="link2" data-tracker="click:link2">Link2</a>
+</div>
+<script src="../../../dist/dom-event-tracker.min.js"></script>
+</body>
+</html>

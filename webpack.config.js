@@ -9,6 +9,7 @@ module.exports = {
   output: {
     filename: 'dom-event-tracker.min.js',
     path: path.resolve(__dirname, 'dist'),
+    sourceMapFilename: "dom-event-tracker.min.js.map"
   },
 
   plugins: [new webpack.ProgressPlugin()],
@@ -51,6 +52,7 @@ module.exports = {
     },
   },
 
+  devtool: "source-map",
 
   devServer: {
     open: true,
