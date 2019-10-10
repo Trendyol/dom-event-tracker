@@ -90,5 +90,6 @@ typings/
 .idea
 coverage
 dist
+screenshots
 
 videos
