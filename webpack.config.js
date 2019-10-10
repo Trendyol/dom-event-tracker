@@ -7,8 +7,9 @@ module.exports = {
   entry: './lib/index.js',
 
   output: {
-    filename: 'dom-event-tracker.min.js',
+    filename: 'dom-event-tracker.[contenthash].min.js',
     path: path.resolve(__dirname, 'dist'),
+    sourceMapFilename: "dom-event-tracker.[contenthash].min.js.map"
   },
 
   plugins: [new webpack.ProgressPlugin()],
@@ -51,6 +52,7 @@ module.exports = {
     },
   },
 
+  devtool: "source-map",
 
   devServer: {
     open: true,

@@ -4,7 +4,7 @@
   "description": "Dynamically tracks mutations and listens for click and seen events",
   "main": "dist/dom-event-tracker.min.js",
   "scripts": {
-    "test": "jest --coverage",
+    "test": "jest --coverage && cypress run --spec cypress/integration/**/*.js",
     "test:watch": "jest --watch --coverage",
     "lint": "eslint --ignore-pattern \"node_modules/**/*.js\" \"lib/*.js\" --fix",
     "build": "webpack",
@@ -24,6 +24,7 @@
     "babel-loader": "^8.0.6",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "chai": "^4.2.0",
+    "cypress": "^3.4.1",
     "eslint": "^6.4.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.18.2",
