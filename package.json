@@ -4,7 +4,8 @@
   "description": "Dynamically tracks mutations and listens for click and seen events",
   "main": "dist/dom-event-tracker.min.js",
   "scripts": {
-    "test": "jest --coverage && npm run build && cypress run --spec cypress/integration/**/*.js",
+    "test": "jest --coverage",
+    "cypress": "npm run build && cypress run --spec cypress/integration/**/*.js",
     "test:watch": "jest --watch --coverage",
     "lint": "eslint --ignore-pattern \"node_modules/**/*.js\" \"lib/*.js\" --fix",
     "build": "webpack",
