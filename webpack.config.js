@@ -7,9 +7,9 @@ module.exports = {
   entry: './lib/index.js',
 
   output: {
-    filename: 'dom-event-tracker.[contenthash].min.js',
+    filename: 'dom-event-tracker.min.js',
     path: path.resolve(__dirname, 'dist'),
-    sourceMapFilename: "dom-event-tracker.[contenthash].min.js.map"
+    sourceMapFilename: "dom-event-tracker.min.js.map"
   },
 
   plugins: [new webpack.ProgressPlugin()],

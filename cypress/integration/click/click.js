@@ -116,4 +116,60 @@ context('Click Detection', () => {
         type: 'click'
       }]);
   });
+
+  it('should fire click event for async item innerhtml with deeper multiple instances', () => {
+    cy.visit(path.join(__dirname, './click_async_inner_multiple.html'));
+
+    cy
+      .get('#click')
+      .click();
+
+    cy
+      .get('#click2')
+      .click();
+
+    cy
+      .get('#click3')
+      .click();
+
+
+    cy.window()
+      .its('dataTrackerEvents')
+      .should('deep.equal', [
+        {"event": "test", "type": "click"},
+        {"event": "test2", "type": "click"},
+        {"event": "test", "type": "click"},
+        {"event": "test3", "type": "click"},
+        {"event": "test2", "type": "click"},
+        {"event": "test", "type": "click"}
+      ]);
+  });
+
+  it('should fire click event for async item innerhtml with deeper multiple instances with capture mode', () => {
+    cy.visit(path.join(__dirname, './click_async_inner_multiple_capture.html'));
+
+    cy
+      .get('#click')
+      .click();
+
+    cy
+      .get('#click2')
+      .click();
+
+    cy
+      .get('#click3')
+      .click();
+
+
+    cy.window()
+      .its('dataTrackerEvents')
+      .should('deep.equal', [
+        {"event": "test", "type": "click-capture"},
+        {"event": "test", "type": "click-capture"},
+        {"event": "test2", "type": "click-capture"},
+        {"event": "test", "type": "click-capture"},
+        {"event": "test2", "type": "click-capture"},
+        {"event": "test3", "type": "click-capture"}
+      ]);
+  });
 });

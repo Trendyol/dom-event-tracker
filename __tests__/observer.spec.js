@@ -76,6 +76,30 @@ describe('Observer', () => {
     observer.onMutation(mutations);
   });
 
+  it('should add trackers to new mutation elements when attribute change', () => {
+    // Arrange
+    const node = {
+      attributes: {
+        [ENUMS.TRACKING_ATTRIBUTE]: faker.random.word(),
+      },
+    };
+    const mutations = [
+      {
+        type: 'attributes',
+        addedNodes: [],
+        target: node
+      }
+    ];
+
+    const cb = sandbox.spy();
+    observer.handlerCallback = cb;
+
+    listenerMock.expects('track').withExactArgs(node, cb);
+
+    // Act
+    observer.onMutation(mutations);
+  });
+
   it('should not call tracker if no attributes', () => {
     // Arrange
     const node = {

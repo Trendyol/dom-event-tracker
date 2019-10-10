@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test</title>
+</head>
+<body>
+<script>
+  window.dataTrackerEvents = [];
+
+  function init(event, type) {
+    window.dataTrackerEvents.push({
+      event,
+      type
+    });
+  }
+
+  setTimeout(() => {
+    const root = document.querySelector('[data-tracker-root]');
+    root.innerHTML = `<div id="click" data-tracker="click-capture:test"><span>Click Here</span><form id="click2" data-tracker="click-capture:test2">Click 2 here<div data-tracker="click-capture:test3" id="click3">Click 3 here</div></form></div>`;
+  }, 300);
+</script>
+<div data-tracker-root="init">
+
+</div>
+<script src="../../../dist/dom-event-tracker.min.js"></script>
+</body>
+</html>
